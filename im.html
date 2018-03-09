@@ -1,0 +1,47 @@
+<!DOCTYPE html>  
+<html>
+<head>
+<meta charset="utf-8" />  
+<title>聊天室Demo</title>  
+
+<script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.js" ></script>
+</head>
+<body>
+
+	<input type="text" class="input" />
+	<input type="button"class="button" value="发送"/>
+	
+	<div class="con"></div>
+
+	<script>
+		$(function(){
+		
+			var url = 'ws://107.182.186.163:9505';
+			var ws = new WebSocket(url);
+			
+			ws.onopen = function(){
+				console.log('open');
+			};
+			
+			ws.onmessage = function(event){
+				$('.con').append('<li>'+event.data+'</li>');
+			}
+			
+			ws.onclose = function(event){
+				console.log('close');
+			}
+			
+			$('.button').on('click',function(){
+				ws.send($(".input").val());
+			});
+		
+		});
+	</script>
+	
+</body>
+
+
+
+
+
+</html>
